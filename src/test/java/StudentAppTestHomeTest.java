@@ -12,12 +12,16 @@ import org.testng.annotations.*;
 import page_objects.AddStudentPage;
 import page_objects.AllStudentsPage;
 import page_objects.Notifications;
+import utils.ConfigHelper;
+import utils.DriverManager;
 
 import java.sql.Driver;
 import java.time.Duration;
 
+import static utils.ConfigHelper.getConfig;
+
 public class StudentAppTestHomeTest {
-    WebDriver driver;
+    WebDriver driver = DriverManager.getInstance();
     WebDriverWait driverWait;
     Faker dataFaker = new Faker();
     AllStudentsPage allStudentsPage;
@@ -27,16 +31,14 @@ public class StudentAppTestHomeTest {
 
     @BeforeMethod
     public void initialize() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        driver = new ChromeDriver(options);
         driverWait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        driver.get(getConfig().getString("student.app.hostname"));
         driver.get(APP_URL);
-        allStudentsPage = new AllStudentsPage(driver);
-        addStudentPage = new AddStudentPage(driver);
-        notifications = new Notifications(driver);
+        allStudentsPage = new AllStudentsPage();
+        addStudentPage = new AddStudentPage();
+        notifications = new Notifications();
     }
-    @AfterMethod
+    @AfterMethod (alwaysRun = true)
     public void  tearDown() {
         driver.close();
         driver.quit();
