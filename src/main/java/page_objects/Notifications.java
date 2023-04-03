@@ -7,39 +7,40 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 import utils.DriverManager;
 
 import java.time.Duration;
 
 public class Notifications {
 
-    private final WebDriver driver = DriverManager.getInstance();
     private final WebDriverWait webDriverWait;
 
     public Notifications() {
-        webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebDriver driver = DriverManager.getInstance();
+        webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(10));
         PageFactory.initElements(driver, this);
     }
+
     @FindBy(how = How.CLASS_NAME, using = "ant-notification-notice-message")
-    WebElement notificationMessageElement;
+    private WebElement notificationMessageElement;
+
     @FindBy(how = How.CLASS_NAME, using = "ant-notification-notice-description")
-    WebElement notificationDescriptionElement;
+    private WebElement notificationDescriptionElement;
+
+    @FindBy(how = How.CLASS_NAME, using = "ant-notification-notice-close")
+    private WebElement popUpCloseButton;
 
     public WebElement getPopUpCloseButton() {
         return popUpCloseButton;
     }
 
-    @FindBy(how = How.CLASS_NAME, using = "ant-notification-notice-close")
-    WebElement popUpCloseButton;
-
     public String getMessageFromNotification() {
         webDriverWait.until(ExpectedConditions.visibilityOf(notificationMessageElement));
         return notificationMessageElement.getText();
     }
+
     public String getDescriptionFromNotification() {
         webDriverWait.until(ExpectedConditions.visibilityOf(notificationDescriptionElement));
         return notificationDescriptionElement.getText();
     }
-
 }

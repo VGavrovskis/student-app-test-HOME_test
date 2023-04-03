@@ -39,7 +39,7 @@ public class DriverManager {
     private static RemoteWebDriver configureRemote() {
         URL url = null;
         try {
-            url = new URL("d6ed8caa-18ef-4b3e-8056-d86ed96ae609");
+            url = new URL("https://oauth-vjaceslavs.gavrovskis-78636:d6ed8caa-18ef-4b3e-8056-d86ed96ae609@ondemand.us-west-1.saucelabs.com:443/wd/hub");
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
@@ -54,8 +54,8 @@ public class DriverManager {
 
     private static MutableCapabilities configureCapabilities() {
         MutableCapabilities sauceOptions = new MutableCapabilities();
-        sauceOptions.setCapability("username", "oauth-nikita-839ac");
-        sauceOptions.setCapability("access_key", "91b032f7-1489-40cf-b55c-3bc4a3376d1c");
+        sauceOptions.setCapability("username", "oauth-vjaceslavs.gavrovskis-78636");
+        sauceOptions.setCapability("access_key", "d6ed8caa-18ef-4b3e-8056-d86ed96ae609c");
         sauceOptions.setCapability("name", testName);
         sauceOptions.setCapability("browserVersion", "latest");
         return sauceOptions;
@@ -72,3 +72,4 @@ public class DriverManager {
         ((JavascriptExecutor) getInstance()).executeScript("sauce:job-result=" + status);
     }
 }
+
